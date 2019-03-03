@@ -44,13 +44,13 @@ class Solution {
         if (x == 1 || x == 0) {
             return x;
         }
-        int i = 0;
-        int j = 1;
+        double  i = 0;
+        double  j = 1;
         while (i != j) {
             i = j;
             j = (j + x / j) / 2;
         }
-        return j;
+        return (int)j;
         
     }
 
