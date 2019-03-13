@@ -45,12 +45,21 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+
 class Solution {
 
     /**
      * 递归
      */
-    public boolean isSymmetric(TreeNode root) {
+    public boolean isSymmetric1(TreeNode root) {
         if (root == null) {
             return true;
         }
@@ -74,7 +83,7 @@ class Solution {
     /**
      * 迭代
      */
-    public boolean isSymmetric(TreeNode root) {
+    public boolean isSymmetric2(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         q.add(root);
