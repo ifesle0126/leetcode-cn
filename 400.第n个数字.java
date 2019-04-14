@@ -42,16 +42,23 @@
  */
 class Solution {
     public int findNthDigit(int n) {
-        int segment = 9;
-        int start = 0;
-        int step = 10;
-        while (n > segment) {
-            n = n - segment;
-            segment = segment * 10;
-            start = segment / 9 / 10;
+        long num = n;
+        long segment = 9;
+        int start = 1;
+        int step = 1;
+        while (num > segment) {
+            num = num - segment;
+            step = step * 10;
+            start++;
+            segment = 9 * step * start;
         }
-        return start + n;
-
+        // System.out.println("segment: " + segment + " step: " + step + " num: " + num);
+        int len = String.valueOf(step).length();
+        long count = num / len;
+        int i = (int)(num % len);
+        return  i == 0 ? String.valueOf(step + count - 1).charAt(len - 1) - '0' 
+            : String.valueOf(step + count).charAt(i - 1) - '0';
     }
 }
 
+// 1000000000
