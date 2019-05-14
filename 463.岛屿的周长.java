@@ -13,12 +13,12 @@ class Solution {
             for (int j = 0; j < grid[i].length; j++) {
                 if(grid[i][j] == 1) {
                     area += 4;
-                }
-                if(grid[i][j] == 1 && i - 1 >= 0 && grid[i-1][j] == 1) {
-                    area -= 2;
-                }
-                if(grid[i][j] == 1 && j - 1 >= 0 && grid[i][j-1] == 1) {
-                    area -= 2;
+                    if(i - 1 >= 0 && grid[i-1][j] == 1) {
+                        area -= 2;
+                    }
+                    if(j - 1 >= 0 && grid[i][j-1] == 1) {
+                        area -= 2;
+                    }
                 }
             }
         }
