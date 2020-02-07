@@ -38,49 +38,49 @@ import java.util.*;
 // @lc code=start
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
-        List<List<Integer>> res = new LinkedList<>(); 
-        for (int i = 0; i < nums.length-2; i++) {
-            if (i == 0 || (i > 0 && nums[i] != nums[i-1])) {
-                int lo = i+1, hi = nums.length-1, sum = 0 - nums[i];
-                while (lo < hi) {
-                    if (nums[lo] + nums[hi] == sum) {
-                        res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
-                        while (lo < hi && nums[lo] == nums[lo+1]) lo++;
-                        while (lo < hi && nums[hi] == nums[hi-1]) hi--;
-                        lo++; hi--;
-                    } else if (nums[lo] + nums[hi] < sum) lo++;
-                    else hi--;
-               }
-            }
-        }
-        return res;
-
-        // List<List<Integer>> list = new ArrayList<List<Integer>>();
         // Arrays.sort(nums);
-        // for(int i = 0; i < nums.length - 2; i++) {
-        //     if(i == 0 || (i > 0 && nums[i] != nums[i-1])) {
-        //         int n1 = nums[i];
-        //         int b = i + 1;
-        //         int e = nums.length - 1;
-        //         while(b < e) {
-        //             int n2 = nums[b];
-        //             int n3 = nums[e];
-        //             if(n1 + n2 + n3 == 0) {
-        //                 list.add(new ArrayList<>(Arrays.asList(n1, n2, n3)));
-        //                 while (b < e && nums[b] == nums[b+1]) b++;
-        //                 while (b < e && nums[e] == nums[e-1]) e--;
-        //                 b++;
-        //                 e--;
-        //             } else if (n2 + n3 < n1) {
-        //                 b++;
-        //             } else {
-        //                 e--;
-        //             }
-        //         }
-        //      }
+        // List<List<Integer>> res = new LinkedList<>(); 
+        // for (int i = 0; i < nums.length-2; i++) {
+        //     if (i == 0 || (i > 0 && nums[i] != nums[i-1])) {
+        //         int lo = i+1, hi = nums.length-1, sum = 0 - nums[i];
+        //         while (lo < hi) {
+        //             if (nums[lo] + nums[hi] == sum) {
+        //                 res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+        //                 while (lo < hi && nums[lo] == nums[lo+1]) lo++;
+        //                 while (lo < hi && nums[hi] == nums[hi-1]) hi--;
+        //                 lo++; hi--;
+        //             } else if (nums[lo] + nums[hi] < sum) lo++;
+        //             else hi--;
+        //        }
+        //     }
         // }
-        // return list;
+        // return res;
+
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        for(int i = 0; i < nums.length - 2; i++) {
+            if(i == 0 || (i > 0 && nums[i] != nums[i-1])) {
+                int n1 = nums[i];
+                int b = i + 1;
+                int e = nums.length - 1;
+                while(b < e) {
+                    int n2 = nums[b];
+                    int n3 = nums[e];
+                    if(n1 + n2 + n3 == 0) {
+                        list.add(new ArrayList<>(Arrays.asList(n1, n2, n3)));
+                        while (b < e && nums[b] == nums[b+1]) b++;
+                        while (b < e && nums[e] == nums[e-1]) e--;
+                        b++;
+                        e--;
+                    } else if (n2 + n3 < -n1) {
+                        b++;
+                    } else {
+                        e--;
+                    }
+                }
+             }
+        }
+        return list;
     }
 }
 // @lc code=end
