@@ -37,7 +37,41 @@
  */
 
 // @lc code=start
+
 class Solution {
+
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length < 1) {
+            return -1;
+        }
+        int b = 0;
+        int e = nums.length - 1;
+        while(b < e) {
+            int m = (b + e) / 2;
+            int n = nums[m];
+            if(n == target) {
+                return m;
+            }
+            if(nums[b] <= n) {
+                if(target >= nums[b] && target < n) {
+                    e = m - 1;
+                } else {
+                    b = m + 1;
+                }
+            } else {
+                if(target > n && target <= nums[e]) {
+                    b = m + 1;
+                } else {
+                    e = m - 1;
+                }
+            }
+        }
+        return nums[b] == target ? b : -1;
+    }
+}
+
+
+class Solution2 {
     public int search(int[] nums, int target) {
         if(nums.length < 1) {
             return -1;
