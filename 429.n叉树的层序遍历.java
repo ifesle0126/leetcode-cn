@@ -78,8 +78,7 @@ class Solution {
         while(!queue.isEmpty()) {
             List<Integer> line = new ArrayList<>();
             Queue<Node> next = new LinkedList<>();
-            while(!queue.isEmpty()) {
-                Node n = queue.poll();
+            for(Node n: queue) {
                 line.add(n.val);
                 next.addAll(n.children);
             }
