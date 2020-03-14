@@ -52,7 +52,7 @@ class Solution {
                 set.add(s.charAt(j++));
                 max = Math.max(max, set.size());
             } else {
-                set.remove(s.charAt(i++));
+                set.remove(s.charAt(i++)); // 删除最前边的
             }
         }
         
