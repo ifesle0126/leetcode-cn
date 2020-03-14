@@ -43,7 +43,7 @@ class Solution {
             int j = m_s.length - 1;
             int step = 0;
             int len = 0;
-            while(j >= b && j >= 0) {
+            while(j > b && j >= 0) {
                 if(m_s[b] == m_s[j]) {
                     int l = j - b;
                     if(l > len) {
@@ -59,15 +59,14 @@ class Solution {
                     continue;
                 }
             }
-            if(j < b) {
+            if(j <= b && m_s[j] == m_s[b]) {
                 String tmp = s.substring(i, i + len + 1);
-                if(tmp.length() > r.length()) {
+                if(r.length() < tmp.length()) {
                     r = tmp;
                 }
             }
-
         }
-        return r;
+        return "".equals(r) ? m_s[0] + "" : r;
     }
 }
 // @lc code=end
