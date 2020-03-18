@@ -54,7 +54,7 @@ class TreeNode {
 /**
  * 栈实现
  */
-class Solution2 {
+class Solution {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
@@ -62,17 +62,47 @@ class Solution2 {
             return list;
         }
         Stack<TreeNode> stack = new Stack<>();
-        while(root != null || !stack.isEmpty()) {
-            while(root != null) {
-                stack.add(root);
-                root = root.left;
+        stack.add(root);
+        TreeNode node = root.left;
+        while(node != null || !stack.isEmpty()) {
+            while(node != null) {
+                stack.add(node);
+                node = node.left;
             }
-            TreeNode node = stack.pop();
-            list.add(node.val);
-            root = node.right;
+            TreeNode nodeStack = stack.pop();
+            list.add(nodeStack.val);
+            node = nodeStack.right;
         }
         return list;
     }
+
+
+    // public List<Integer> inorderTraversal(TreeNode root) {
+    //     List<Integer> list = new ArrayList<>();
+    //     if(root == null) {
+    //         return list;
+    //     }
+    //     Stack<TreeNode> stack = new Stack<>();
+    //     stack.add(root);
+    //     while (!stack.isEmpty()) {
+    //         TreeNode node = stack.peek();
+    //         if (node == null) {
+    //             continue;
+    //         }
+    //         if (node.left != null) {
+    //             stack.add(node.left);
+    //             node.left = null;
+    //         } else {
+    //             list.add(node.val);
+    //             stack.pop();
+    //             if(node.right != null) {
+    //                 stack.add(node.right);
+    //                 node.right = null;
+    //             }
+    //         }
+    //     }
+    //     return list;
+    // }
 
 }
 
@@ -80,7 +110,7 @@ class Solution2 {
 /**
  * 递归实现
  */
-class Solution {
+class Solution2 {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         if(root == null) {
