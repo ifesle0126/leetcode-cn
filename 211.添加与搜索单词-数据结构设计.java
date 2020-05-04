@@ -100,111 +100,122 @@ class WordDictionary {
 }
 
 
-class WordDictionary2 {
+// class WordDictionary {
 
-    Node root;
+//     Node root;
 
-    class Node {
-        Node[] nodes;
-        boolean isEnd;
-        char c;
+//     class Node {
+//         Node[] nodes;
+//         boolean isEnd;
+//         char c;
 
-        public Node() {
-            this.nodes = new Node[26];
-            this.isEnd = false;
-            this.c = ' ';
-        }
+//         public Node() {
+//             this.nodes = new Node[26];
+//             this.isEnd = false;
+//             this.c = ' ';
+//         }
 
-        public Node(char cc) {
-            this.nodes = new Node[26];
-            this.isEnd = false;
-            this.c = cc;
-        }
+//         public Node(char cc) {
+//             this.nodes = new Node[26];
+//             this.isEnd = false;
+//             this.c = cc;
+//         }
 
-        public void addChild(char cc) {
-            nodes[cc - 'a'] = new Node(cc);
-        }
+//         public void addChild(char cc) {
+//             nodes[cc - 'a'] = new Node(cc);
+//         }
 
-        public boolean hasChild(char cc) {
-            return nodes[cc - 'a'] != null;
-        }
+//         public boolean hasChild(char cc) {
+//             return nodes[cc - 'a'] != null;
+//         }
 
-        public Node getChild(char cc) {
-            return nodes[cc - 'a'];
-        }
+//         public Node getChild(char cc) {
+//             return nodes[cc - 'a'];
+//         }
 
-        public Node[] getChildren() {
-            return nodes;
-        }
-    }
+//         public Node[] getChildren() {
+//             return nodes;
+//         }
+//     }
 
-    /** Initialize your data structure here. */
-    public WordDictionary2() {
-        this.root = new Node();
-    }
+//     /** Initialize your data structure here. */
+//     public WordDictionary() {
+//         this.root = new Node();
+//     }
     
-    /** Adds a word into the data structure. */
-    public void addWord(String word) {
-        if(".".equals(word)) {
-            return;
-        }
-        Node node = root;
-        for (int i = 0; i < word.length(); i++) {
-            char cc = word.charAt(i);
-            if (!node.hasChild(cc)) {
-                node.addChild(cc);
-            }
-            node = node.getChild(cc);
-        }
-        node.isEnd = true;
-    }
+//     /** Adds a word into the data structure. */
+//     public void addWord(String word) {
+//         if(".".equals(word)) {
+//             return;
+//         }
+//         Node node = root;
+//         for (int i = 0; i < word.length(); i++) {
+//             char cc = word.charAt(i);
+//             if (!node.hasChild(cc)) {
+//                 node.addChild(cc);
+//             }
+//             node = node.getChild(cc);
+//         }
+//         node.isEnd = true;
+//     }
     
-    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
-    public boolean search(String word) {
-        Node node = root;
-        for(int i = 0; i < word.length(); i++) {
-            char cc = word.charAt(i);
-            if(cc == '.') {
-                return search(word.substring(i + 1), node.getChildren());
-            } else if (!node.hasChild(cc)) {
-                return false;
-            }
-            node = node.getChild(cc);
-        }
-        return node.isEnd;
-    }
+//     /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+//     public boolean search(String word) {
+//         Node node = root;
+//         for(int i = 0; i < word.length(); i++) {
+//             char cc = word.charAt(i);
+//             if(cc == '.') {
+//                 if (i == 0) {
+//                     boolean f = false;
+//                     for (Node nodeSub : node.getChildren()) {
+//                         if (nodeSub == null) {
+//                             continue;
+//                         }
+//                         f = f || search(word, nodeSub.getChildren());
+//                     }
+//                     return f;
+//                 } else {
+//                     return search(word.substring(i + 1), node.getChildren());
+//                 }
+//             } else if (!node.hasChild(cc)) {
+//                 return false;
+//             }
+//             node = node.getChild(cc);
+//         }
+//         return node.isEnd;
+//     }
 
-    private boolean search(String word, Node[] nodes) {
+//     private boolean search(String word, Node[] nodes) {
         
-        boolean hasNext = false;
-        for (Node node : nodes) {
-            if (node != null) {
-                hasNext = true;
-                break;
-            }
-        }
-        if(!hasNext) {
-            return false;
-        }
-        for(int i = 0; i < nodes.length; i++) {
-            Node node = nodes[i];
-            if(node == null) {
-                continue;
-            }
-            for (int j = 0; j < word.length(); j++) {
-                char cc = word.charAt(j);
-                if (cc == '.') {
-                    return search(word.substring(j + 1), node.getChildren());
-                } else if (!node.hasChild(cc)) {
-                    break;
-                }
-                node = node.getChild(cc);
-            }
-            return node.isEnd;
-        }
-        return false;
-    }
-}
+//         boolean hasNext = ".".equals(word);
+//         for (Node node : nodes) {
+//             if (node != null) {
+//                 hasNext = true;
+//                 break;
+//             }
+//         }
+//         if(!hasNext) {
+//             return false;
+//         }
+//         for(int i = 0; i < nodes.length; i++) {
+//             Node node = nodes[i];
+//             if(node == null) {
+//                 continue;
+//             }
+//             for (int j = 0; j < word.length(); j++) {
+//                 char cc = word.charAt(j);
+//                 if (cc == '.') {
+//                     return search(word.substring(j + 1), node.getChildren());
+//                 } else if (!node.hasChild(cc)) {
+//                     break;
+//                 }
+//                 node = node.getChild(cc);
+//             }
+//             return node.isEnd;
+//         }
+//         return false;
+//     }
+// }
 
 /**
  * Your WordDictionary object will be instantiated and called as such:
