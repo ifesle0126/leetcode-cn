@@ -101,20 +101,34 @@ public class AllOne {
     
     /** Returns one of the keys with maximal value. */
     public String getMaxKey() {
-        if(minMax.isEmpty()) {
+        if(minMax == null || minMax.isEmpty()) {
             return "";
         }
         // minMax.getFirst() always has max value
-        return valueMap.get(minMax.getFirst()).iterator().next();
+        if(valueMap.size() == 1) {
+            return valueMap.entrySet().iterator().next().getValue().iterator().next();
+        }
+        Set<String> set =  valueMap.get(minMax.getFirst());
+        if(set == null) {
+            return "";
+        }
+        return set.iterator().next();
     }
     
     /** Returns one of the keys with Minimal value. */
     public String getMinKey() {
-        if(minMax.isEmpty()) {
+        if(minMax == null || minMax.isEmpty()) {
             return "";
         }
-        // minMax.getFirst() always has min value
-        return valueMap.get(minMax.getLast()).iterator().next();
+        // minMax.getLast() always has min value
+        if(valueMap.size() == 1) {
+            return valueMap.entrySet().iterator().next().getValue().iterator().next();
+        }
+        Set<String> set =  valueMap.get(minMax.getLast());
+        if(set == null) {
+            return "";
+        }
+        return set.iterator().next();
     }
     
     private void putInValueMap(int count, String node) {
@@ -130,7 +144,7 @@ public class AllOne {
             minMax.addFirst(count);
         }
         
-        if(!minMax.isEmpty() && minMax.getLast() > count) {
+        if(minMax.isEmpty() || minMax.getLast() > count) {
             minMax.addLast(count);
         }
     }
@@ -150,11 +164,11 @@ public class AllOne {
             valueMap.remove(count);
             
             // Update min max
-            if(!minMax.isEmpty() && minMax.getFirst() == count) {
-                minMax.removeFirst();
-            }
             if(!minMax.isEmpty() && minMax.getLast() == count) {
                 minMax.removeLast();
+            }
+            if(!minMax.isEmpty() && minMax.getFirst() == count) {
+                minMax.removeFirst();
             }
         }
     }
