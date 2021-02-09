@@ -34,6 +34,35 @@ class Solution {
         if (s <= 0 || nums == null || nums.length < 1) {
             return 0;
         }
+        int b = 0;
+        int e = b + 1;
+        int min = nums.length;
+        int sum = nums[b];
+        boolean f = true;
+        while (b <= e && e <= nums.length) {
+            if (sum >= s) {
+                min = Math.min(min, e - b);
+                sum = sum - nums[b];
+                b++;
+                f = false;
+            } else {
+                sum = e < nums.length? sum + nums[e] : sum;
+                e++;
+            }
+        }
+        if(f) {
+            return 0;
+        }
+        return min;
+    }
+}
+
+
+class Solution3 {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (s <= 0 || nums == null || nums.length < 1) {
+            return 0;
+        }
 
         int i = 0;
 
