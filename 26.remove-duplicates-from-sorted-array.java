@@ -52,7 +52,37 @@
  * 
  */
 class Solution {
+
 	public int removeDuplicates(int[] nums) {
+
+        if(nums == null || nums.length < 1) {
+            return 0;
+        }
+
+        int i = 0;
+        int sum = 0;
+        while (i < nums.length) {
+            int j = i + 1;
+            int tmp = sum;
+            while (j < nums.length - tmp && nums[i] == nums[j]) {
+                j++; 
+                sum++;
+            }
+            if (j == nums.length) {
+                break;
+            }
+            int k = i;
+            while (j < nums.length) {
+                nums[++k] = nums[j++];
+            }
+            i++;
+        }
+
+        return nums.length - sum;
+    }
+
+
+	public int removeDuplicates2(int[] nums) {
 
         int i = 0;
         int c = 0;
