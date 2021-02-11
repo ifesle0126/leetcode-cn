@@ -102,7 +102,7 @@ class Solution {
         }
         ListNode next = head.next;
         head.next = head;
-        boolean r = hasCycle(next);
+        boolean r = hasCycle2(next);
         return r;
     }
 }
