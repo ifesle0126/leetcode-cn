@@ -36,7 +36,40 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+
     public int[][] insert(int[][] intervals, int[] newInterval) {
+        int left = newInterval[0];
+        int right = newInterval[1];
+        boolean placed = false;
+        List<int[]> ansList = new ArrayList<int[]>();
+        for (int[] interval : intervals) {
+            if (interval[0] > right) {
+                // 在插入区间的右侧且无交集
+                if (!placed) {
+                    ansList.add(new int[]{left, right});
+                    placed = true;                    
+                }
+                ansList.add(interval);
+            } else if (interval[1] < left) {
+                // 在插入区间的左侧且无交集
+                ansList.add(interval);
+            } else {
+                // 与插入区间有交集，计算它们的并集
+                left = Math.min(left, interval[0]);
+                right = Math.max(right, interval[1]);
+            }
+        }
+        if (!placed) {
+            ansList.add(new int[]{left, right});
+        }
+        int[][] ans = new int[ansList.size()][2];
+        for (int i = 0; i < ansList.size(); ++i) {
+            ans[i] = ansList.get(i);
+        }
+        return ans;
+    }
+
+    public int[][] insert3(int[][] intervals, int[] newInterval) {
         if(intervals == null || intervals.length < 1) {
             int[][] ints = new int[1][];
             ints[0] = newInterval;
@@ -84,6 +117,66 @@ class Solution {
 
         }
         return list.toArray(new int[list.size()][]);
+    }
+
+
+    public int[][] insert2(int[][] intervals, int[] newInterval) {
+        if (intervals == null || intervals.length < 1) {
+            int[][] ints = new int[1][];
+            ints[0] = newInterval;
+            return ints;
+        }
+        Stack<int[]> stack = new Stack<>();
+        stack.add(intervals[0]);
+        int i = 1;
+        int[] next = newInterval;
+        boolean f = false;
+        while (i < intervals.length || (intervals.length == 1 && next != null)) {
+            int[] newInts = stack.pop();
+            int[] tmp = null;
+            if (intervals.length == 1 || intervals[i][0] > next[0]) {
+                tmp = next;
+                next = intervals.length == 1 ? null : intervals[i];
+                f = true;
+            } else {
+                tmp = intervals[i];
+                i++;
+            }
+            if (tmp[1] < newInts[0]) {
+                stack.add(tmp);
+                stack.add(newInts);
+            } else if (tmp[0] > newInts[1]) {
+                stack.add(newInts);
+                stack.add(tmp);
+            } else if (tmp[0] <= newInts[0] && tmp[1] <= newInts[1]) {
+                stack.add(new int[]{tmp[0], newInts[1]});
+            } else if (tmp[0] <= newInts[0] && tmp[1] >= newInts[1]) {
+                stack.add(new int[]{tmp[0], tmp[1]});
+            } else if (tmp[0] >= newInts[0] && tmp[1] <= newInts[1]) {
+                stack.add(newInts);
+            } else if (tmp[0] >= newInts[0] && tmp[1] >= newInts[1]) {
+                stack.add(new int[]{newInts[0], tmp[1]});
+            } 
+        }
+        if (!f) {
+            int[] newInts = stack.pop();
+            if (newInterval[1] < newInts[0]) {
+                stack.add(newInterval);
+                stack.add(newInts);
+            } else if (newInterval[0] > newInts[1]) {
+                stack.add(newInts);
+                stack.add(newInterval);
+            } else if (newInterval[0] <= newInts[0] && newInterval[1] <= newInts[1]) {
+                stack.add(new int[]{newInterval[0], newInts[1]});
+            } else if (newInterval[0] <= newInts[0] && newInterval[1] >= newInts[1]) {
+                stack.add(new int[]{newInterval[0], newInterval[1]});
+            } else if (newInterval[0] >= newInts[0] && newInterval[1] <= newInts[1]) {
+                stack.add(newInts);
+            } else if (newInterval[0] >= newInts[0] && newInterval[1] >= newInts[1]) {
+                stack.add(new int[]{newInts[0], newInterval[1]});
+            } 
+        }
+        return stack.toArray(new int[stack.size()][]);
     }
 }
 // @lc code=end
