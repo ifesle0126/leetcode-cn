@@ -32,7 +32,42 @@
 
 // @lc code=start
 class Solution {
+
     public String longestPalindrome(String s) {
+
+        char[] chars = s.toCharArray();
+        int[][] table = new int[s.length()][s.length()];
+        int max = 0;
+        int ii = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = s.length() - 1 - i; j >= 0 ; j--) {
+                if (chars[i] == chars[j]) {
+                    if(i - 1 >= 0 && j - 1 >=0) {
+                        table[i][j] = table[i - 1][j - 1] + 1;
+                    } else {
+                        table[i][j] = 1;
+                    }
+                    if (table[i][j] >= max) {
+                        ii = i;
+                        max = table[i][j];
+                        System.out.println(ii + " " + max);
+                    }
+                }
+            }
+        }
+
+        String r = "";
+
+        while (max > 0) {
+            r = r + chars[ii--];
+            max--;
+        }
+        return r;
+
+    }
+
+
+    public String longestPalindrome2(String s) {
         if(s == null || s.length() <= 1) {
             return s;
         }
@@ -56,7 +91,6 @@ class Solution {
                     j = m_s.length - 1 - step;
                     b = i;
                     len = 0;
-                    continue;
                 }
             }
             if(j <= b && m_s[j] == m_s[b]) {
