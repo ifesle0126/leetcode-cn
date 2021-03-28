@@ -36,36 +36,42 @@ class Solution {
     public String longestPalindrome(String s) {
 
         char[] chars = s.toCharArray();
-        int[][] table = new int[s.length()][s.length()];
+        if (chars.length == 1) {
+            return s;
+        }
         int max = 0;
-        int ii = 0;
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = s.length() - 1 - i; j >= 0 ; j--) {
-                if (chars[i] == chars[j]) {
-                    if(i - 1 >= 0 && j - 1 >=0) {
-                        table[i][j] = table[i - 1][j - 1] + 1;
-                    } else {
-                        table[i][j] = 1;
-                    }
-                    if (table[i][j] >= max) {
-                        ii = i;
-                        max = table[i][j];
-                        System.out.println(ii + " " + max);
-                    }
-                }
+        int beg = 0;
+        int end = 0;
+        for(int i = 0; i < s.length() - 1; i++) {
+            int one = longestPalindrome(chars, i, i);
+            int two = longestPalindrome(chars, i, i + 1);
+            if (max > one && max > two) {
+                continue;
             }
+            int tmp = Math.max(one, two);
+            if (max < tmp) {
+                beg = i - (tmp - 1) / 2;
+                end = i + tmp / 2;
+                max = tmp;
+            }
+
         }
-
-        String r = "";
-
-        while (max > 0) {
-            r = r + chars[ii--];
-            max--;
-        }
-        return r;
-
+        return s.substring(beg, end + 1);
     }
 
+    public static int longestPalindrome(char[] chars, int i, int j) {
+        if (chars[i] != chars[j]) {
+            return 0;
+        }
+        while (i >= 0 && j < chars.length) {
+            if(chars[i] == chars[j]) {
+                i--;j++;
+            } else {
+                break;
+            }
+        }
+        return j - i - 1;
+    }
 
     public String longestPalindrome2(String s) {
         if(s == null || s.length() <= 1) {
