@@ -1,5 +1,11 @@
 import java.util.*;
 
+
+/**
+ * 给定两个字符串str1和str2，输出两个字符串的最长公共子序列。如果最长公共子序列为空，则输出-1。
+ * 输入: "1A2C3D4B56","B1D23CA45B6A"
+ * 返回: "123456"
+ */
 public class LCS2 {
     
     public static void main(String[] args) {
