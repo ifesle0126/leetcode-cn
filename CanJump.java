@@ -11,7 +11,6 @@ public class CanJump {
     public static boolean canJump(int[] nums) {
         int minStepCount = 1;
         int i = nums.length - 2;
-
         while (i >= 0) {
             int num = nums[i];
             if (num >= minStepCount) {
