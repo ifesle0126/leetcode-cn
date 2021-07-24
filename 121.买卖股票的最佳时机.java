@@ -34,8 +34,21 @@
  * 
  */
 class Solution {
-// '[2,1,2,1,0,1,2]'
+
+
     public int maxProfit(int[] prices) {
+        int profit[][] = new int[prices.length][2];
+        profit[0][1] = -prices[0];
+        profit[0][0] = 0;
+        for(int i=1; i<prices.length; i++){
+            profit[i][1] = Math.max(profit[i-1][1], -prices[i]);
+            profit[i][0] = Math.max(profit[i-1][0], profit[i-1][1]+prices[i]);
+        }
+        return profit[prices.length-1][0];
+    }
+
+// '[2,1,2,1,0,1,2]'
+    public int maxProfit3(int[] prices) {
         if(prices == null || prices.length <= 1) {
             return 0;
         }
