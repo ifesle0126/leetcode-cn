@@ -28,7 +28,7 @@
  */
 class Solution {
 
-    public void moveZeroes(int[] nums) {
+    public void moveZeroes3(int[] nums) {
         int insertPosition = 0;
         int index = 0;
         while(index < nums.length) {
@@ -61,6 +61,23 @@ class Solution {
                 
             } 
             index++;
+        }
+    }
+
+    public void moveZeroes(int[] nums) {
+        int i = 0;
+        int j = i + 1;
+        while (j < nums.length) {
+            if (nums[i] == 0) {
+                if (nums[j] != 0) {
+                    nums[i] = nums[j];
+                    nums[j] = 0;
+                    i++;
+                }
+            } else {
+                i++;
+            }
+            j++;
         }
     }
 }

@@ -71,10 +71,12 @@
 //         next = null;
 //     }
 // }
+import java.util.*;
+
 
 class Solution {
 
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle3(ListNode head) {
         if ( head == null || head.next == null) {
             return false;
         }
@@ -105,5 +107,19 @@ class Solution {
         boolean r = hasCycle2(next);
         return r;
     }
+
+    public boolean hasCycle(ListNode head) {
+        Set<ListNode> set = new HashSet<>();
+        ListNode node = head;
+        while (node != null) {
+            if (set.contains(node)) {
+                return true;
+            }
+            set.add(node);
+            node = node.next;
+        }
+        return false;
+    }
+
 }
 

@@ -95,26 +95,26 @@ import java.util.*;
 
 class Solution {
 
-    // public ListNode detectCycle(ListNode head) {
-    //     if(head == null) {
-    //         return null;
-    //     }
-    //     Set<ListNode> set = new HashSet<>();
-    //     ListNode node = head;
-    //     while (node != null) {
-    //         if (set.contains(node)) {
-    //             return node;
-    //         } else {
-    //             set.add(node);
-    //         }
-    //         node = node.next;
-    //     }
-
-    //     return null;
-
-    // }
-
     public ListNode detectCycle(ListNode head) {
+        if(head == null) {
+            return null;
+        }
+        Set<ListNode> set = new HashSet<>();
+        ListNode node = head;
+        while (node != null) {
+            if (set.contains(node)) {
+                return node;
+            } else {
+                set.add(node);
+            }
+            node = node.next;
+        }
+
+        return null;
+
+    }
+
+    public ListNode detectCycle2(ListNode head) {
         if (head == null) {
             return null;
         }
